@@ -4,9 +4,11 @@
 
     <data>
 
+        <import type="java.lang.String" />
+
         <variable
             name="viewModel"
-            type="com.pkjain.demo.ui.rider.RiderListViewModel" />
+            type="com.pkjain.demo.ui.ticket.TicketListViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -14,13 +16,24 @@
         android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/rider_list"
+            android:id="@+id/ticket_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:adapter="@{viewModel.getRiderListAdapter()}"
+            app:adapter="@{viewModel.getTicketListAdapter()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.presenter.onClick(viewModel.ticketInfo)}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:mutableText="@{viewModel.ticketInfo.ticketTotal}" />
+
     </android.support.constraint.ConstraintLayout>
+
 </layout>

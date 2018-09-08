@@ -7,16 +7,12 @@ import com.pkjain.R
 import com.pkjain.demo.ui.rider.RiderListViewModel
 import com.pkjain.demo.utils.loadFareInfo
 
-class ViewModelFactory(private val activity: AppCompatActivity) : ViewModelProvider.Factory {
+class RiderViewModelFactory(private val activity: AppCompatActivity, private val presenter: RiderListViewModel.Presenter) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(RiderListViewModel::class.java)) {
-//            val db = Room.databaseBuilder(activity.applicationContext, AppDatabase::class.java, "posts").build()
             @Suppress("UNCHECKED_CAST")
-//            db.postDao()
-
-            return RiderListViewModel(activity.resources.loadFareInfo(R.raw.fare)) as T
+            return RiderListViewModel(activity.resources.loadFareInfo(R.raw.fare), presenter = presenter) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
-
     }
 }

@@ -5,19 +5,12 @@ import com.pkjain.demo.base.BaseViewModel
 import com.pkjain.demo.model.RiderInfo
 
 class RiderViewModel : BaseViewModel() {
-    private val title = MutableLiveData<String>()
-    private val text = MutableLiveData<String>()
+    val riderInfo = MutableLiveData<RiderInfo>()
 
     fun bind(riderInfo: RiderInfo) {
-        title.value = riderInfo.name
-        text.value = riderInfo.fares.subtext
+        this.riderInfo.value = riderInfo
     }
 
-    fun getTitle(): MutableLiveData<String> {
-        return title
-    }
-
-    fun getText(): MutableLiveData<String> {
-        return text
-    }
+    fun title() = riderInfo.value?.fareType?.name
+    fun text() = riderInfo.value?.fares?.subtext
 }

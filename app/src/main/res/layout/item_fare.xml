@@ -6,12 +6,11 @@
 
         <variable
             name="viewModel"
-            type="com.pkjain.demo.ui.rider.RiderViewModel" />
+            type="com.pkjain.demo.ui.fare.FareViewModel" />
 
         <variable
             name="presenter"
-            type="com.pkjain.demo.ui.rider.RiderListViewModel.Presenter" />
-
+            type="com.pkjain.demo.ui.fare.FareListViewModel.Presenter" />
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -19,9 +18,8 @@
         android:layout_height="wrap_content"
         android:background="@color/item"
         android:clickable="true"
-        android:focusable="true"
         android:foreground="?selectableItemBackground"
-        android:onClick="@{() -> presenter.onClick(viewModel.riderInfo)}"
+        android:onClick="@{() -> presenter.onClick(viewModel.fare)}"
         android:padding="16dp">
 
         <TextView

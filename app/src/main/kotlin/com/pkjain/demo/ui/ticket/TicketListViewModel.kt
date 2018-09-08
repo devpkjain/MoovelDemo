@@ -1,23 +1,24 @@
-package com.pkjain.demo.ui.rider
+package com.pkjain.demo.ui.ticket
 
 import android.arch.lifecycle.MutableLiveData
 import android.view.View
 import com.pkjain.R
 import com.pkjain.demo.base.BaseViewModel
 import com.pkjain.demo.model.PostDao
-import com.pkjain.demo.model.RiderInfo
+import com.pkjain.demo.model.TicketInfo
 import com.pkjain.demo.network.PostApi
 import javax.inject.Inject
 
-class RiderListViewModel(private val itemList: List<RiderInfo>, private val postDao: PostDao? = null, val presenter: RiderListViewModel.Presenter) : BaseViewModel() {
+class TicketListViewModel(private val itemList: List<TicketInfo>,
+                          private val postDao: PostDao? = null,
+                          val presenter: Presenter) : BaseViewModel() {
     @Inject
     lateinit var postApi: PostApi
-    val riderListAdapter: RiderListAdapter = RiderListAdapter(presenter)
+    val ticketListAdapter: TicketListAdapter = TicketListAdapter(presenter)
 
     val loadingVisibility: MutableLiveData<Int> = MutableLiveData()
     val errorMessage: MutableLiveData<Int> = MutableLiveData()
     val errorClickListener = View.OnClickListener { loadPosts() }
-
 
     init {
         loadPosts()
@@ -28,7 +29,6 @@ class RiderListViewModel(private val itemList: List<RiderInfo>, private val post
     }
 
     private fun loadPosts() {
-
         onRetrievePostListSuccess(itemList);
     }
 
@@ -41,8 +41,8 @@ class RiderListViewModel(private val itemList: List<RiderInfo>, private val post
         loadingVisibility.value = View.GONE
     }
 
-    private fun onRetrievePostListSuccess(itemList: List<RiderInfo>) {
-        riderListAdapter.updatePostList(itemList)
+    private fun onRetrievePostListSuccess(itemList: List<TicketInfo>) {
+        ticketListAdapter.updatePostList(itemList)
     }
 
     private fun onRetrievePostListError() {
@@ -51,6 +51,9 @@ class RiderListViewModel(private val itemList: List<RiderInfo>, private val post
 
     interface Presenter {
 
-        fun onClick(riderInfo: RiderInfo)
+        fun onClick(ticketInfo: TicketInfo)
     }
+
+    fun ticketInfo() = itemList.get(0)
+
 }
