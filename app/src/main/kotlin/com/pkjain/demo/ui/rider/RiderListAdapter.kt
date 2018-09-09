@@ -8,12 +8,12 @@ import com.pkjain.R
 import com.pkjain.databinding.ItemRiderBinding
 import com.pkjain.demo.model.RiderInfo
 
-class RiderListAdapter : RecyclerView.Adapter<RiderListAdapter.ViewHolder>() {
+class RiderListAdapter(val presenter: RiderListViewModel.Presenter) : RecyclerView.Adapter<RiderListAdapter.ViewHolder>() {
     private lateinit var itemList: List<RiderInfo>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RiderListAdapter.ViewHolder {
         val binding: ItemRiderBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_rider, parent, false)
-        return ViewHolder(binding)
+        return ViewHolder(binding, presenter)
     }
 
     override fun onBindViewHolder(holder: RiderListAdapter.ViewHolder, position: Int) {
@@ -29,12 +29,13 @@ class RiderListAdapter : RecyclerView.Adapter<RiderListAdapter.ViewHolder>() {
         notifyDataSetChanged()
     }
 
-    class ViewHolder(private val binding: ItemRiderBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(private val binding: ItemRiderBinding, private val presenter: RiderListViewModel.Presenter) : RecyclerView.ViewHolder(binding.root) {
         private val viewModel = RiderViewModel()
 
         fun bind(item: RiderInfo) {
             viewModel.bind(item)
             binding.viewModel = viewModel
+            binding.presenter = presenter
         }
     }
 }

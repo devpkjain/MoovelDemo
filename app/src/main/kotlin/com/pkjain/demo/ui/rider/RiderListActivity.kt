@@ -3,14 +3,19 @@ package com.pkjain.demo.ui.rider
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.text.Html
 import com.pkjain.R
 import com.pkjain.databinding.ActivityRiderListBinding
-import com.pkjain.demo.injection.ViewModelFactory
+import com.pkjain.demo.injection.RiderViewModelFactory
+import com.pkjain.demo.model.RiderInfo
+import com.pkjain.demo.ui.fare.FareListActivity
+
 
 class RiderListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRiderListBinding
@@ -20,12 +25,23 @@ class RiderListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setTitle(R.string.title_rider);
+        supportActionBar?.apply {
+            setBackgroundDrawable(ColorDrawable(resources.getColor(R.color.header)))
+            setTitle(Html.fromHtml("<font color='#8A8A8A'>Select Rider</font>"))
+        }
+
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_rider_list)
         binding.riderList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        viewModel = ViewModelProviders.of(this, ViewModelFactory(this)).get(RiderListViewModel::class.java)
+        val context = this
+        viewModel = ViewModelProviders.of(context, RiderViewModelFactory(this,
+                object : RiderListViewModel.Presenter {
+                    override fun onClick(riderInfo: RiderInfo) {
+                        startActivity(FareListActivity.createIntent(context, riderInfo))
+                    }
+                }
+        )).get(RiderListViewModel::class.java)
         viewModel.errorMessage.observe(this, Observer { errorMessage ->
             if (errorMessage != null) showError(errorMessage) else hideError()
         })
@@ -41,4 +57,5 @@ class RiderListActivity : AppCompatActivity() {
     private fun hideError() {
         errorSnackbar?.dismiss()
     }
+
 }

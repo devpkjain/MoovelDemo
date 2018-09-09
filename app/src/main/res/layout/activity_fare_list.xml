@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.pkjain.demo.ui.rider.RiderListViewModel" />
+            type="com.pkjain.demo.ui.fare.FareListViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -14,10 +14,10 @@
         android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/rider_list"
+            android:id="@+id/fare_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:adapter="@{viewModel.getRiderListAdapter()}"
+            app:adapter="@{viewModel.getFareListAdapter()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -2,6 +2,7 @@ package com.pkjain.demo.utils
 
 import android.content.res.Resources
 import android.support.annotation.RawRes
+import com.pkjain.demo.model.FareType
 import com.pkjain.demo.model.Rider
 import com.pkjain.demo.model.RiderInfo
 
@@ -16,8 +17,8 @@ fun Resources.loadFareInfo(@RawRes resId: Int): List<RiderInfo> {
 
 fun Rider.transformToRiderInfo(): List<RiderInfo> {
     val itemList: ArrayList<RiderInfo> = java.util.ArrayList()
-    itemList.add(RiderInfo("Adult", Adult))
-    itemList.add(RiderInfo("Child", Child))
-    itemList.add(RiderInfo("Senior", Senior))
+    itemList.add(RiderInfo(FareType.Adult, Adult))
+    itemList.add(RiderInfo(FareType.Child, Child))
+    itemList.add(RiderInfo(FareType.Senior, Senior))
     return itemList;
 }
