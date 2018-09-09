@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">MoovelDemoApp</string>
+
+    <string name="retry">Retry</string>
+    <string name="post_error">An error occurred while loading the posts</string>
+    <string name="title_rider">Select Rider</string>
+    <string name="title_fare">Select Fare</string>
+    <string name="title_quantity">Confirm Selection</string>
+    <string name="count_plus">+</string>
+    <string name="count_minus">-</string>
+    <string name="ticket_total">Buy %s tickets - $%s</string>
+    <string name="zero_decimal">.00</string>
+</resources>
