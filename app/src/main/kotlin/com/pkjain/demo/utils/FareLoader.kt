@@ -10,15 +10,15 @@ import com.pkjain.demo.model.RiderInfo
  *
  */
 fun Resources.loadFareInfo(@RawRes resId: Int): List<RiderInfo> {
-    val jsonSource = openRawResource(resId).bufferedReader().use { it.readText() }
-    val rider = ObjectMapperFactory.create().readValue(jsonSource, Rider::class.java)
-    return rider.transformToRiderInfo();
+    return ObjectMapperFactory.create().readValue(openRawResource(resId).bufferedReader().use { it.readText() }.apply {
+        ObjectMapperFactory.create().readValue(this, Rider::class.java)
+    }, Rider::class.java).transformToRiderInfo();
 }
 
 fun Rider.transformToRiderInfo(): List<RiderInfo> {
-    val itemList: ArrayList<RiderInfo> = java.util.ArrayList()
-    itemList.add(RiderInfo(FareType.Adult, Adult))
-    itemList.add(RiderInfo(FareType.Child, Child))
-    itemList.add(RiderInfo(FareType.Senior, Senior))
-    return itemList;
+    return ArrayList<RiderInfo>().apply {
+        add(RiderInfo(FareType.Adult, Adult))
+        add(RiderInfo(FareType.Child, Child))
+        add(RiderInfo(FareType.Senior, Senior))
+    }
 }
